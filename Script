@@ -32,7 +32,7 @@ bottomFrame.Parent = frame
 
 -- Create the main button
 local cButton = Instance.new("TextButton")
-cButton.Name = "TButton" --change the word to the letter you want
+cButton.Name = "XButton" --change the word to the letter you want
 cButton.Size = UDim2.new(0, 50, 0, 50)
 cButton.Position = UDim2.new(0.5, -25, 0.5, -25)
 cButton.BackgroundColor3 = Color3.new(0.8, 0.8, 0.8)
