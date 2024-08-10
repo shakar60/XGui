@@ -7,7 +7,7 @@ local player = Players.LocalPlayer
 
 -- Create the main ScreenGui
 local gui = Instance.new("ScreenGui")
-gui.Name = "XGui" -- Changed to reflect the new key
+gui.Name = "XGui" -- Change the word to the letter you want
 gui.ResetOnSpawn = false -- Ensure the GUI doesn't disappear on reset
 gui.Parent = CoreGui -- Set the GUI parent to CoreGui for the nicer look
 
@@ -30,13 +30,13 @@ UICornerOuter.Parent = frame
 
 -- Create the main button
 local cButton = Instance.new("TextButton")
-cButton.Name = "XButton" -- Changed to reflect the new key
+cButton.Name = "XButton" -- Change the word to the letter you want
 cButton.Size = UDim2.new(0, 180, 0, 60)
 cButton.Position = UDim2.new(0.5, -90, 0.5, -30)
 cButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- Dark grey background
 cButton.BorderSizePixel = 0
 cButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
-cButton.Text = "X Gui Off" -- Initial button text
+cButton.Text = "X Gui" -- Button text
 cButton.Font = Enum.Font.SourceSans
 cButton.TextSize = 24
 cButton.TextScaled = true -- Makes the text larger
@@ -47,44 +47,45 @@ local UICornerButton = Instance.new("UICorner")
 UICornerButton.CornerRadius = UDim.new(0, 10)
 UICornerButton.Parent = cButton
 
--- Toggle state
-local isGuiOn = false
-
 -- Button click event
 cButton.MouseButton1Click:Connect(function()
-    isGuiOn = not isGuiOn
-    cButton.Text = isGuiOn and "X Gui On" or "X Gui Off"
-
-    -- Trigger the X key event
     local vim = game:GetService("VirtualInputManager")
     vim:SendKeyEvent(true, Enum.KeyCode.X, false, game)
 end)
 
--- Key press event to toggle X Gui
+-- Key press event to send the key press
 UserInputService.InputBegan:Connect(function(input, isProcessed)
     if isProcessed then return end
-    if input.KeyCode == Enum.KeyCode.X then -- Key to toggle
-        isGuiOn = not isGuiOn
-        cButton.Text = isGuiOn and "X Gui On" or "X Gui Off"
+    if input.KeyCode == Enum.KeyCode.X then -- Key to send
+        local vim = game:GetService("VirtualInputManager")
+        vim:SendKeyEvent(true, Enum.KeyCode.X, false, game)
     end
 end)
+
+-- Variable to track if the notification has been shown
+local notificationShown = false
 
 -- Chat command to kill the GUI
 player.Chatted:Connect(function(message)
     if message:lower() == "/e killgui" then
-        gui:Destroy()
-        -- Display notification
-        StarterGui:SetCore("SendNotification", {
-            Title = "Info",
-            Text = "Type /e killgui To Kill The Gui",
-            Duration = 15, -- 15 seconds notification
-        })
+        if gui then
+            gui:Destroy()
+            if not notificationShown then
+                -- Display notification
+                StarterGui:SetCore("SendNotification", {
+                    Title = "Info";
+                    Text = "GUI has been removed.";
+                    Duration = 15; -- 15 seconds notification
+                })
+                notificationShown = true
+            end
+        end
     end
 end)
 
 -- Display notification when the GUI is created
 StarterGui:SetCore("SendNotification", {
-    Title = "Info",
-    Text = "Type /e killgui To Kill The Gui",
-    Duration = 15, -- 15 seconds notification
+    Title = "Info";
+    Text = "Type /e killgui To Kill The Gui";
+    Duration = 15; -- 15 seconds notification
 })
