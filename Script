@@ -7,7 +7,7 @@ local player = Players.LocalPlayer
 
 -- Create the main ScreenGui
 local gui = Instance.new("ScreenGui")
-gui.Name = "XGui" -- Change the word to the letter you want
+gui.Name = "XGui" -- Changed from "FGui" to "XGui"
 gui.ResetOnSpawn = false -- Ensure the GUI doesn't disappear on reset
 gui.Parent = CoreGui -- Set the GUI parent to CoreGui for the nicer look
 
@@ -29,28 +29,28 @@ UICornerOuter.CornerRadius = UDim.new(0, 20)
 UICornerOuter.Parent = frame
 
 -- Create the main button
-local cButton = Instance.new("TextButton")
-cButton.Name = "XButton" -- Change the word to the letter you want
-cButton.Size = UDim2.new(0, 180, 0, 60)
-cButton.Position = UDim2.new(0.5, -90, 0.5, -30)
-cButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- Dark grey background
-cButton.BorderSizePixel = 0
-cButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
-cButton.Text = "X Gui" -- Button text
-cButton.Font = Enum.Font.SourceSans
-cButton.TextSize = 24
-cButton.TextScaled = true -- Makes the text larger
-cButton.Parent = frame
+local xButton = Instance.new("TextButton")
+xButton.Name = "XButton" -- Changed from "FButton" to "XButton"
+xButton.Size = UDim2.new(0, 180, 0, 60)
+xButton.Position = UDim2.new(0.5, -90, 0.5, -30)
+xButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- Dark grey background
+xButton.BorderSizePixel = 0
+xButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
+xButton.Text = "X Gui" -- Changed from "F Gui" to "X Gui"
+xButton.Font = Enum.Font.SourceSans
+xButton.TextSize = 24
+xButton.TextScaled = true -- Makes the text larger
+xButton.Parent = frame
 
 -- Add rounded corners to the button
 local UICornerButton = Instance.new("UICorner")
 UICornerButton.CornerRadius = UDim.new(0, 10)
-UICornerButton.Parent = cButton
+UICornerButton.Parent = xButton
 
 -- Button click event
-cButton.MouseButton1Click:Connect(function()
+xButton.MouseButton1Click:Connect(function()
     local vim = game:GetService("VirtualInputManager")
-    vim:SendKeyEvent(true, Enum.KeyCode.X, false, game)
+    vim:SendKeyEvent(true, Enum.KeyCode.X, false, game) -- Changed from "F" to "X"
 end)
 
 -- Key press event to send the key press
@@ -58,7 +58,7 @@ UserInputService.InputBegan:Connect(function(input, isProcessed)
     if isProcessed then return end
     if input.KeyCode == Enum.KeyCode.X then -- Key to send
         local vim = game:GetService("VirtualInputManager")
-        vim:SendKeyEvent(true, Enum.KeyCode.X, false, game)
+        vim:SendKeyEvent(true, Enum.KeyCode.X, false, game) -- Changed from "F" to "X"
     end
 end)
 
@@ -82,6 +82,13 @@ player.Chatted:Connect(function(message)
         end
     end
 end)
+
+-- Display notification when the GUI is created
+StarterGui:SetCore("SendNotification", {
+    Title = "Info";
+    Text = "Type /e killgui To Kill The Gui";
+    Duration = 15; -- 15 seconds notification
+})end)
 
 -- Display notification when the GUI is created
 StarterGui:SetCore("SendNotification", {
